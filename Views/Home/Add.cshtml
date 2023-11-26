@@ -1,0 +1,33 @@
+
+@model FileUpLoadAudio
+<form enctype="multipart/form-data" method="post">
+<div class="card" style="width: 600px; height: 500px">
+  <div class="card-header">
+     <h1>
+         Upload your audio
+     </h1>
+  </div>
+    <div class="card-body">
+        <p class="card-text"><h2>
+            Audio Name
+        </h2></p>
+        <input type="text" class="form-control" asp-for="@Model.Audio.Name"  placeholder="Audio name" aria-label="Username" aria-describedby="basic-addon1">
+         <span class="text-danger mt-3" style="font-size: medium;margin-top: 30px;" asp-validation-for="@Model.Audio.Name"></span>
+        <h2 class="mt-4">
+            Your audio image
+        </h2>
+        <input type="file" class="form-control" asp-for="@Model.ImageFileUpLoad" />
+        <span class="text-danger mt-3" style="font-size: medium;margin-top: 30px;" asp-validation-for="@Model.ImageFileUpLoad"></span>
+
+         <h2 class="mt-4">
+            Your audio file
+        </h2>
+
+        <input type="file" class="form-control" asp-for="@Model.AudioFileUpLoad"  />
+         <span class="text-danger mt-3" style="font-size: medium;margin-top: 30px;" asp-validation-for="@Model.AudioFileUpLoad"></span>
+        <h1></h1>
+        <input type="submit" class="btn btn-success   mt-5" value="Submit" asp-action="add" asp-controller="home">
+        <input type="submit" class="btn btn-success  mt-5" value="Back" asp-action="index" asp-controller="home">
+    </div>
+</div>
+</form>

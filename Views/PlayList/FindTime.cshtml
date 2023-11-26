@@ -1,0 +1,54 @@
+@model TimeModel
+@inject EntityModel entityModel 
+<div style="height: 1000px; width : 700px">
+    <form asp-action="findTime" method="post" asp-controller="playList">
+        <h1>From</h1>
+        <input class="form-control" asp-for="@Model.from">
+        <span class="form-check-label form-text mt-3 text-danger" asp-validation-for="@Model.from"></span>
+        <h1>To</h1>
+        <input class="form-control" asp-for="@Model.to">   
+        <span class="form-check-label form-text mt-4 text-danger" asp-validation-for="@Model.to"></span>
+        <h1></h1>
+        <input type="submit" class="form-submit btn btn-success mt-4 text-white">
+    </form>
+
+@{
+     if(this.Context.Request.Method.ToLower() == "post"){
+        if(ViewData.ModelState.IsValid){
+            DateTime from = Model.from ; 
+            DateTime to = Model.to ; 
+            var result1 = entityModel.AudioDates.ToList().Join(entityModel.Controls.ToList() ,
+                                        audioDate => audioDate.DateID ,
+                                        datecontrol => datecontrol.ID,
+                                        (audioDate , dateControl) => new { audioID = audioDate.AudioID , 
+                                                                            date = dateControl.Date }
+                                        )
+                                   .Where(item => item.date.CompareTo(to)   < 0 &&
+                                                  item.date.CompareTo(from) > 0   
+                                     );
+            if(result1.Count() > 0){
+              var result =  result1.GroupBy( item => item.audioID);    
+             var max = result.Max(item => item.Count());   // max của số lần xuaát hiện 
+            var list = result.Where(item => item.Count() == max);  // lọc ra danh sách những grouping có count = max 
+            <h1 class="mt-3">Find @list.Count() result with the number of occurrences is @max</h1>
+             <h2>Result find:</h2>
+            foreach(var item in list){
+                var AudioID = item.Key ; 
+                Audio audio = entityModel.Audios.ToList().Where(item => item.ID == AudioID).FirstOrDefault();
+                <h1><a asp-controller="home" asp-action="detail" asp-route-returnUrl="/playList/findTime" asp-route-id="@audio.ID">@audio.Name</a></h1>
+                @* <div class="card mt-4" style="width: 25rem; height: 25rem">
+                <img class="card-img-top" src="/images/@audio.Image" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@audio.Name</h5>
+                    <audio controls>
+                        <source src="/Media/@audio.AudioSrc" type="audio/mpeg">
+                    </audio>                    
+                </div>
+                </div> *@
+            }
+            }                         
+          
+        } 
+    } 
+}
+</div>

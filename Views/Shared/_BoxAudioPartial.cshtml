@@ -1,0 +1,13 @@
+@model Audio
+ <div id="slide">
+        <h2>@Model.Name</h2>
+        <a asp-action="Detail" asp-route-returnUrl="/" asp-controller="Home" asp-route-id=@Model.ID style="margin-left: 30px;" class="mt-5"><img src="images/@Model.Image" style="width: 400px; height: 150px " alt="website template image" /></a>
+       
+        <a asp-action="Edit" style="float: left: ;margin-left: 30px; height: 40px; ;" asp-route-id=@Model.ID class="text-white btn btn-primary mt-3 mb-3">Edit</a>
+        <a asp-action="Remove" asp-route-id=@Model.ID style="float: left: ;margin-left: 20px; height: 40px; ;" class="text-white btn btn-warning mt-3 mb-3">Remove</a>
+        <a asp-route-id=@Model.ID asp-action="AddPlaylist" style="float: left: ;margin-left: 40px; height: 40px; ;" class="text-white btn btn-secondary mt-3 mb-3">Add to PlayList</a>
+ </div>
+<div class="clear"></div>
+
+<div class="clear"></div>
+

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Audio>
+@inject List<Audio> QuickLinks
+  <a asp-action="Add" asp-controller="home" class="text-white btn btn-success" >Add to playlist</a>
+@{
+    foreach(var item in Model){
+       Html.RenderPartial("_BoxAudioPartial" , item);
+    }
+}
+
+
+@section QuickLinks{
+        <div id="sidebar">
+      <div id="sidebarcontents">
+        <h2 class="quicklinks">PlayList</h2>
+        <ul>
+          @{
+            foreach(var item in QuickLinks){
+              if(item != null){
+              <li><a asp-action="Detail" asp-route-returnUrl="/" asp-route-id=@item.ID>@item.Name</a></li>
+              }
+            }
+          }
+        
+        </ul>
+        <a asp-action="undo" asp-controller="home" class="btn btn-secondary mt-3" style="width: 240px;">Undo</a>
+        <a href="/PlayList/Main?id=0"  class="btn btn-secondary mt-3" style="width: 240px;">Play</a>
+      </div>
+    </div>
+}

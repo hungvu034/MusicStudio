@@ -1,0 +1,51 @@
+@model Audio
+<style>
+    .btnNext{
+        border-radius: 12px;
+        text-align: center;
+        width: 100px;
+        margin-left: 360px;
+    }
+
+        .btnBack{
+        border-radius: 12px;
+        text-align: center;
+        width: 100px;
+        margin-left: 15px;
+        
+    }
+</style>
+
+<div class="card" style="width: 600px; height: 500px">
+  <img class="card-img-top" src="/images/@Model.Image" style="width: 600px; height: 300px" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">@Model.Name</h5>
+        <audio controls autoplay=true>
+            <source src="/Media/@Model.AudioSrc" type="audio/mpeg">
+         </audio>
+  </div>  
+    @{
+        string RouteValue =  this.Context.Request.Query["ID"] + "" ; 
+        int index = int.Parse(RouteValue); 
+        int Back = index - 1 ; 
+        int Next = index + 1  ; 
+    }
+    <div class="mt-3">
+        @{
+            if(index > 0){
+                <a class="text-white btnBack btn btn-secondary" asp-route-id=@(index - 1 ) asp-action="main" asp-controller="PlayList" >Back</a>
+            }
+            else{
+                  <a class="text-white btnBack btn btn-secondary" asp-route-id=@index asp-action="main" asp-controller="PlayList"  >Back</a>
+            }
+            if(index < int.Parse(this.ViewData["max"] + "") - 1 ){
+                <a class="text-white btnNext btn btn-secondary" asp-route-id=@(index + 1 ) asp-action="main" asp-controller="PlayList" >Next</a>
+            }
+            else{
+                  <a class="text-white btnNext btn btn-secondary" asp-route-id=@index asp-action="main" asp-controller="PlayList" >Next</a>
+            }
+        }
+        
+    </div>
+</div>
+

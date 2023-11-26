@@ -1,0 +1,19 @@
+version: '3.0.8'
+
+services:
+  music_data:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: music_data
+    environment:
+      MSSQL_SA_PASSWORD: "Password789"
+      ACCEPT_EULA: "Y"
+    ports:
+      - 1433:1433
+    volumes:
+      - mssql_data:/var/opt/mssql 
+volumes:
+  mssql_data:
+    name: mssql_data
+    
+  storage_data:
+    name: storage_data 

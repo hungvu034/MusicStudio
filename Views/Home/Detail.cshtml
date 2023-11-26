@@ -1,0 +1,16 @@
+@model Audio
+
+<div class="card" style="width: 600px; height: 500px">
+  <img class="card-img-top" src="/images/@Model.Image" style="width: 600px; height: 300px" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">@Model.Name</h5>
+        <audio controls>
+            <source src="/Media/@Model.AudioSrc" type="audio/mpeg">
+         </audio>
+  </div>  
+  @{
+    string returnUrl = this.Context.Request.Query["returnUrl"];
+  }
+  <div style="margin-left:20px"><a asp-action="move" asp-route-returnUrl="@returnUrl" class="btn btn-primary text-white" asp-controller="home">Back</a></div>
+</div>
+

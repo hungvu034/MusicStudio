@@ -1,0 +1,36 @@
+@model FileUpLoadAudio
+<style>
+    .image_wh{
+        height: 250px;
+        width: 450px;
+    }
+</style>
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="@Model.Audio.ID" hidden>
+    <input asp-for="@Model.Audio.Image" hidden>
+    <input asp-for="@Model.Audio.AudioSrc" hidden>
+    <div class="card"> 
+      <div class="card-body">
+        <h1>Name</h1>
+        <input class="form-control" style="width:450px ;" asp-for="@Model.Audio.Name">
+        <span class="text-danger" style="font-size: 15px;" asp-validation-for="@Model.Audio.Name"></span>
+        <img src="/images/@Model.Audio.Image" class="card-img mt-3 image_wh" alt="">  
+        <h1 class="mt-3">Upload your new image file</h1>
+        <input class="form-control mt-3" style="width:450px ;" asp-for="@Model.ImageFileUpLoad">
+        <h1></h1>
+        <span class="text-danger" style="font-size: 15px;" asp-validation-for="@Model.ImageFileUpLoad"></span>
+        <h1></h1>
+        <audio controls class="mt-3">
+            <source src="/Media/@Model.Audio.AudioSrc" type="audio/mpeg">
+         </audio>
+        <h1 class="mt-3">Upload your new audio file</h1>
+        <input class="form-control" style="width:450px ;" asp-for="@Model.AudioFileUpLoad"> 
+        <h1></h1>
+        <span class="text-danger" style="font-size: 15px;" asp-validation-for="@Model.AudioFileUpLoad"></span>
+      </div>
+        <div style="text-align:center ;">
+            <a class="btn btn-warning ml-3" asp-action="move" asp-controller="home" asp-route-returnUrl="/">Back</a>
+            <button class="btn btn-info" type="submit">Change</button>
+        </div>
+    </div>
+</form>
